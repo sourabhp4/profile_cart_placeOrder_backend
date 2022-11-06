@@ -3,12 +3,14 @@ const mongoose = require('mongoose')
 
 //Shop Owner Profile Schema
 const profileSchema = mongoose.Schema({
+    shopOwnerId: {
+        type: String
+    },
     
     username: { 
         type: String,
         minLength: 3,
-        maxLength: 20,
-        default: null
+        maxLength: 20
     },
 
     phone: {

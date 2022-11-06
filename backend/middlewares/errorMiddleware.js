@@ -7,7 +7,7 @@ const errorHandler = (err, req, res, next) => {
     res.status(statusCode)
 
     //Return a json object consisting of message same as 'Error Message' and stack to give the developer some extra information
-    //Stack will be returned if the 'NODE Environment is production'
+    //Stack will be returned if the 'NODE Environment is set to production'
     res.json({
         message: err.message,
         stack: process.env.NODE_ENV === 'production' ? null : err.stack

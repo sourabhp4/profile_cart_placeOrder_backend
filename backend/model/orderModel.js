@@ -1,27 +1,20 @@
 
 const mongoose = require('mongoose')
-const Profile = require('./profileModel')
-const Items = require('./itemModel')
-const ShopOwnerProfile = require('./shopOwnerModel')
-
 
 //Item Schema
 const orderSchema = mongoose.Schema({
 
-    shopOwnerID:{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: ShopOwnerProfile
+    shopOwnerId:{
+        type: String
     },
 
-    userID: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: Profile
+    uid: {
+        type: String
     },
 
     items: [{
-        itemID: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: Items
+        itemId: {
+            type: String
         },
 
         name: {
@@ -42,6 +35,10 @@ const orderSchema = mongoose.Schema({
         type: String,
         min: 5,
         max: 250
+    },
+
+    deliveryCharges: {
+        type: Number
     },
 
     totalPrice: {

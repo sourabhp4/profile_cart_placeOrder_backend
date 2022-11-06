@@ -5,15 +5,15 @@ const Profile = require('../model/profileModel')
 const Joi = require('joi')
 
 //Method get the profile if the id is valid using findOne() method
-// GET /api/profile/:id
+// GET /api/profile
 const getProfile = asyncHandler( async (req, res) => {
     
     //Tries to get the profile by ID..if successful, returns the profile as json object 
 
     try{
-        const {_id, username, phone} = await Profile.findOne({ _id: req.params.id})
+        const { uid, username, phone } = await Profile.findOne({ uid: req.uid })
         res.status(200).json({
-            _id: _id,
+            uid: uid,
             username: username,
             phone: phone
         })
@@ -34,7 +34,7 @@ const updateProfile = asyncHandler( async (req, res) => {
 
      //Validate the profile ID..
      try{
-        await Profile.findOne({ _id: req.params.id})
+        await Profile.findOne({ uid: req.uid})
     }
 
     // If Profile is not found, catch block throws the new error saying "Profile Not Found"
@@ -55,9 +55,9 @@ const updateProfile = asyncHandler( async (req, res) => {
     }
 
     // Updates the Profile parameters, by the parameters specified in body of the request
-    const {_id, username, phone} = await Profile.findOneAndUpdate({_id: req.params.id}, req.body, { new: true })
+    const { uid, username, phone} = await Profile.findOneAndUpdate({ uid: req.uid }, req.body, { new: true })
     res.status(200).json({
-        _id: _id,
+        uid: uid,
         username: username,
         phone: phone
     })

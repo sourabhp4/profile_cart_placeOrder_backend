@@ -6,7 +6,8 @@ const asyncHanlder = require('express-async-handler')
 const checkAuth = asyncHanlder (async (req, res, next) => {
   if (req.headers.authtoken) {
     await admin.auth().verifyIdToken(req.headers.authtoken)
-      .then(() => {
+      .then((decodedToken) => {
+        req.uid = decodedToken.uid
         next()
       }).catch((err) => {
         res.status(403).send(err.message)

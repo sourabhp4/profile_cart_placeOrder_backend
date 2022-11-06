@@ -1,9 +1,11 @@
 
 const mongoose = require('mongoose')
-require('mongoose-type-url')
 
 //Item Schema
 const itemSchema = mongoose.Schema({
+    itemid: {
+        type: String
+    },
     name: { 
         type: String,
         required: true,

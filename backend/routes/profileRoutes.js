@@ -5,6 +5,6 @@ const router = express.Router()
 const { getProfile, updateProfile } = require('../controller/profileController')
 
 //Use the two methods to handle GET and PUT requests
-router.route( '/:id' ).get(getProfile).put(updateProfile)
+router.route( '/' ).get(getProfile).put(updateProfile)
 
 module.exports = router

@@ -3,12 +3,14 @@ const mongoose = require('mongoose')
 
 //Profile Schema
 const profileSchema = mongoose.Schema({
-    
+    uid: {
+        type: String
+    },
+
     username: { 
         type: String,
         minLength: 3,
-        maxLength: 20,
-        default: null
+        maxLength: 20
     },
 
     phone: {
