@@ -7,7 +7,7 @@ const Items = require('../model/itemModel')
 const Cart = require('../model/cartModel')
 
 //Method get the cart items if the id is valid using findOne() method
-// GET /api/cart/:id
+// GET /api/cart
 const getCart = asyncHandler( async (req, res) => {
 
     //Tries to get the cart details by ID..if successful, returns the cart array as json object
