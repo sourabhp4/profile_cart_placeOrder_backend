@@ -18,8 +18,8 @@ const readOrder = asyncHandler( async (req, res) => {
     // If id is invalid, catch block throws the new error saying "Invalid ID"
 
     catch(err){
-        res.status(400)
-        throw new Error('Invalid User ID')
+        res.status(204)
+        throw new Error('No Orders Yet')
     }
 
 })

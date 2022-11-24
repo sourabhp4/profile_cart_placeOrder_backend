@@ -1,10 +1,10 @@
 const express = require('express')
 const router = express.Router()
 
-//Get the two methods from the controller
-const { getProfile, updateProfile } = require('../controller/profileController')
+//Get the three methods from the controller
+const { createProfile, getProfile, updateProfile } = require('../controller/profileController')
 
-//Use the two methods to handle GET and PUT requests
-router.route( '/' ).get(getProfile).put(updateProfile)
+//Use the two methods to handle GET, POST and PUT requests
+router.route( '/' ).get(getProfile).put(updateProfile).post(createProfile)
 
 module.exports = router

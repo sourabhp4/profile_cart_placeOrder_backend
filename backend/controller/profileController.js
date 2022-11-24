@@ -2,10 +2,11 @@
 
 const asyncHandler = require('express-async-handler')
 const Profile = require('../model/profileModel')
+const Cart = require('../model/cartModel')
 const Joi = require('joi')
 
 //Method get the profile if the id is valid using findOne() method
-// GET /api/profile
+//GET /api/profile
 const getProfile = asyncHandler( async (req, res) => {
     
     //Tries to get the profile by ID..if successful, returns the profile as json object 
@@ -29,7 +30,7 @@ const getProfile = asyncHandler( async (req, res) => {
 })
 
 //Method to update the profile
-//PUT /api/profile/:id
+//PUT /api/profile
 const updateProfile = asyncHandler( async (req, res) => {
 
      //Validate the profile ID..
@@ -64,7 +65,34 @@ const updateProfile = asyncHandler( async (req, res) => {
 
 })
 
+//Method to update the profile
+//POST /api/profile
+const createProfile = asyncHandler( async (req, res) => {
 
+    //Try to create a profile
+    try{
+        // Create the Profile with uid
+        await Profile.create({
+            uid: req.uid,
+            phone: req.body.phone,
+            username: null
+        })
+
+        await Cart.create({
+            uid: req.uid,
+            address: null
+        })
+   }
+
+   //Catch any error while creating profile
+   catch(err){
+        res.status(400)
+        throw new Error('Profile creation failed')
+   }
+
+   res.status(200).send('Created Successfully')
+
+})
 
 //Function to validate the req.body using Joi
 function validate(obj){
@@ -87,9 +115,8 @@ function validate(obj){
 }
 
 
-
-
 module.exports = {
+    createProfile,
     getProfile,
     updateProfile
 }

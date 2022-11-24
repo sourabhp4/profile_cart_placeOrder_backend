@@ -1,14 +1,14 @@
 
 const mongoose = require('mongoose')
 
-//Item Schema
+//Cart Schema
 const cartSchema = mongoose.Schema({
     uid: {
-        Type: String
+        type: String
     },
 
     address: {
-        Type: String
+        type: String
     },
 
     items: [{
