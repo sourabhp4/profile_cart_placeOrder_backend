@@ -12,8 +12,8 @@ const readTransactions = asyncHandler( async (req, res) => {
 
     //Tries to get the cart details by ID..if successful, returns the item list with transactions as json object
     try{
-        let transactionsAll = await Orders.find({ uid: req.uid },
-            { uid: 1, status: 1, totalPrice: 1, items: 1, _id: 0 })
+        const transactionsAll = await Orders.find({ uid: req.uid },
+            { uid: 1, status: 1, totalPrice: 1, items: 1, _id: 1 })
             .sort( {createdAt: -1} )
             .skip(req.body.skip)
             .limit(req.body.limit)
@@ -26,6 +26,7 @@ const readTransactions = asyncHandler( async (req, res) => {
             const transaction = {}
             transaction.status = transactionsAll[j].status
             transaction.totalPrice = transactionsAll[j].totalPrice
+            transaction.orderid = transactionsAll[j]._id
             transaction.itemNames = []
 
             //Loop to access each item in the order

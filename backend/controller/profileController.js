@@ -9,22 +9,18 @@ const Joi = require('joi')
 //GET /api/profile
 const getProfile = asyncHandler( async (req, res) => {
     
-    //Tries to get the profile by ID..if successful, returns the profile as json object 
-
+    //Tries to get the profile by ID..if successful, returns the profile as json object
     try{
-        const { uid, username, phone } = await Profile.findOne({ uid: req.uid })
-        res.status(200).json({
-            uid: uid,
-            username: username,
-            phone: phone
-        })
+        const profile = await Profile.findOne({ uid: req.uid }, {username: 1, phone: 1, _id: 0})
+        profile.uid = req.uid
+        res.status(200).json(profile)
     }
 
     // If Profile is not found, catch block throws the new error saying "Profile Not Found"
 
     catch(err){
         res.status(400)
-        throw new Error('Profile Not Found')
+        throw new Error(err.message)
     }
 
 })
@@ -51,10 +47,10 @@ const updateProfile = asyncHandler( async (req, res) => {
 
     //Handle the error object, i.e, throws a new error with the message same as the error object
     if(result){
+        console.log(result)
         res.status(400)
         throw new Error(result.details[0].message)
     }
-
     // Updates the Profile parameters, by the parameters specified in body of the request
     const { uid, username, phone} = await Profile.findOneAndUpdate({ uid: req.uid }, req.body, { new: true })
     res.status(200).json({
